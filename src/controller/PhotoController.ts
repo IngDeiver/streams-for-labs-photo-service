@@ -6,7 +6,7 @@ import { HttpException } from '../exceptions';
 import { PhotoService } from '../services';
 import path from 'path'
 import fs from 'fs'
-
+import { decryptFile } from '../utils/encrypt'
 
 /**
  *
@@ -57,15 +57,15 @@ class PhotoController {
      
       const location =  photo.path
       console.log("Location:", location);
-      
-      res.sendFile(path.resolve(location), photo.name, err => {
-        if (err) {
-          throw new HttpException(500, err.message);
-        } else {
-          console.log(`Photo ${photo.name} downloaded`);
-          
-        }
-      })
+     
+      //const fileDecryped = await decryptFile(location)
+      const fileDecryped = fs.readFileSync(location)
+      res.writeHead(200, {
+          "Content-disposition": "attachment; filename=" + photo.name,
+          "Content-Type": "application/octet-stream",
+          "Content-Length": fileDecryped.length
+      });
+      res.end(fileDecryped);
     } catch (error) {
       return next(new HttpException(error.status || 500, error.message));
     }
