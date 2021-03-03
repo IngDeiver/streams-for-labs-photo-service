@@ -60,12 +60,8 @@ class PhotoController {
      
       //const fileDecryped = await decryptFile(location)
       const fileDecryped = fs.readFileSync(location)
-      res.writeHead(200, {
-          "Content-disposition": "attachment; filename=" + photo.name,
-          "Content-Type": "application/octet-stream",
-          "Content-Length": fileDecryped.length
-      });
-      res.end(fileDecryped);
+      res.json({image: fileDecryped.toString("base64"), name: photo.name});
+      
     } catch (error) {
       return next(new HttpException(error.status || 500, error.message));
     }
