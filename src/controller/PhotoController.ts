@@ -46,15 +46,35 @@ class PhotoController {
    * @return {JSON} - A list of Photos
    * @memberof PhotoController
    */
+  // public static async download(req: any, res: Response, next: NextFunction) {
+  //   try {
+  //     const { id, author } = req.params;
+  //     const photo: IPhoto | null = await PhotoService.getById(id);
+
+  //     if (!photo) throw new HttpException(404, 'Photo not found');
+  //     if( author != photo.author) throw new HttpException(403, 'Forbidden: The Photo is not his authorship.');
+
+     
+  //     const location =  photo.path
+  //     console.log("Location:", location);
+     
+  //     //const fileDecryped = await decryptFile(location)
+  //     const fileDecryped = fs.readFileSync(location)
+  //     res.json({image: fileDecryped.toString("base64"), name: photo.name});
+      
+  //   } catch (error) {
+  //     return next(new HttpException(error.status || 500, error.message));
+  //   }
+  // }
+
+
   public static async download(req: any, res: Response, next: NextFunction) {
     try {
-      const { id, author } = req.params;
+      const { id } = req.params;
       const photo: IPhoto | null = await PhotoService.getById(id);
 
       if (!photo) throw new HttpException(404, 'Photo not found');
-      if( author != photo.author) throw new HttpException(403, 'Forbidden: The Photo is not his authorship.');
-
-     
+    
       const location =  photo.path
       console.log("Location:", location);
      

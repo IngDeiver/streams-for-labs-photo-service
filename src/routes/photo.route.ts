@@ -33,12 +33,20 @@ import {
   
    
       // Get Photo
+      // this.router.get(
+      //   `${this.pathIdParam}${this.pathAuthorParam}`,
+      //   isDefinedParamMiddleware(),
+      //   (req: Request, res: Response, next: NextFunction) => PhotoController
+      //     .download(req, res, next),
+      // );
+      
       this.router.get(
-        `${this.pathIdParam}${this.pathAuthorParam}`,
+        `/download${this.pathIdParam}`,
         isDefinedParamMiddleware(),
         (req: Request, res: Response, next: NextFunction) => PhotoController
           .download(req, res, next),
       );
+
 
       // Remove Photo
       this.router.delete(
