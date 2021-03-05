@@ -78,11 +78,11 @@ class PhotoController {
       const location =  photo.path
       console.log("Location:", location);
      
-      //const fileDecryped = await decryptFile(location)
-      const fileDecryped = fs.readFileSync(location)
+      const fileDecryped = await decryptFile(location)
       res.json({image: fileDecryped.toString("base64"), name: photo.name});
       
     } catch (error) {
+      console.log(error)
       return next(new HttpException(error.status || 500, error.message));
     }
   }
