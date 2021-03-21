@@ -28,8 +28,9 @@ class PhotoController {
   public static async list(req: Request, res: Response, next: NextFunction) {
     try {
       const author = req.params.author
-      const Photos: Array<IPhoto> = await PhotoService.getPhotos(author);
-      res.json(Photos);
+      const ownPhotos: Array<IPhoto> = await PhotoService.getPhotos(author);
+      const sharedPhotos: Array<IPhoto> = await PhotoService.getSharePhotos(author);
+      res.json([...ownPhotos, ...sharedPhotos]);
     } catch (error) {
       return next(new HttpException(error.status || 500, error.message));
     }
