@@ -36,6 +36,30 @@ class PhotoController {
     }
   }
 
+    /**
+   *
+   * Share Photo
+   * @static
+   * @param {Request} req - The request
+   * @param {Response} res - The response
+   * @param {NextFunction} next - The next middleware in queue
+   * @return {Number} - A status request
+   * @memberof PhotoController
+   */
+     public static async sharePhotoWithUser(req: Request, res: Response, next: NextFunction) {
+      try {
+        const {photoId, userToShareId} = req.body
+        const { author} = req.params
+        const photoShared: IPhoto | null = await  PhotoService.sharePhotoWithUser(userToShareId, photoId)
+        
+        if (!photoShared) throw new HttpException(404, 'Photo not found');
+        if (author != photoShared?.author) throw new HttpException(403, 'Forbidden');
+        
+        res.sendStatus(200);
+      } catch (error) {
+        return next(new HttpException(error.status || 500, error.message));
+      }
+    }
 
  /**
    *

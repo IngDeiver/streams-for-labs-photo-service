@@ -123,5 +123,14 @@ class PhotoRepository implements ICrud<IPhoto, string> {
   async getPhotos(author: string): Promise<Array<IPhoto>> {
     return Photo.find({ author });
   }
+  /**
+   *
+   *
+   * @return {Promise<IPhoto>} Share Photo with a user
+   * @memberof PhotoRepository
+   */
+   async sharePhotoWithUser(userToShare: string, _id: String): Promise<IPhoto | null> {
+    return Photo.findByIdAndUpdate(_id, { $addToSet: { shared_users: new mongoose.Types.ObjectId(userToShare)} })
+  }
 }
 export default new PhotoRepository();

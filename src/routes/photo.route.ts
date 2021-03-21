@@ -32,6 +32,13 @@ import {
         .list(req, res, next));
   
    
+      // Share Photo
+      this.router.post(`/share${this.pathAuthorParam}`,
+      isDefinedParamMiddleware('params', 'author'),
+      (req: Request, res: Response, next: NextFunction) => PhotoController
+        .sharePhotoWithUser(req, res, next),
+    );
+
       // Get Photo
       // this.router.get(
       //   `${this.pathIdParam}${this.pathAuthorParam}`,
