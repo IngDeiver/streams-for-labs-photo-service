@@ -47,6 +47,17 @@ class PhotoRepository implements ICrud<IPhoto, string> {
   /**
    *
    *
+   * @param {string} path - The path to find
+   * @return {Promise<IPhoto>}  A Photo
+   * @memberof PhotoRepository
+   */
+   async getByPath(path: string): Promise<IPhoto | null> {
+    return Photo.findOne({ path });
+  }
+
+  /**
+   *
+   *
    * @param {IPhoto} Photo - The Photo to remove
    * @return {Promise<IPhoto>}  A Photo removed
    * @memberof PhotoRepository

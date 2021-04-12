@@ -39,13 +39,6 @@ import {
         .sharePhotoWithUser(req, res, next),
     );
 
-      // Get Photo
-      // this.router.get(
-      //   `${this.pathIdParam}${this.pathAuthorParam}`,
-      //   isDefinedParamMiddleware(),
-      //   (req: Request, res: Response, next: NextFunction) => PhotoController
-      //     .download(req, res, next),
-      // );
       
       this.router.get(
         `/download${this.pathIdParam}`,
@@ -61,6 +54,14 @@ import {
         isDefinedParamMiddleware('params', 'author'),
         (req: Request, res: Response, next: NextFunction) => PhotoController
           .removeById(req, res, next),
+      );
+
+      // Remove Photo synced
+      this.router.delete(
+        `/sync${this.pathAuthorParam}`,
+        isDefinedParamMiddleware('params', 'author'),
+        (req: Request, res: Response, next: NextFunction) => PhotoController
+          .removePhotoSyncedByPath(req, res, next),
       );
     }
   }

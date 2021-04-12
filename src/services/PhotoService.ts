@@ -43,6 +43,30 @@ class PhotoService implements ICrud<IPhoto, string> {
     return PhotoRepository.getById(id);
   }
 
+
+   /**
+   *
+   * Find by path a Photo
+   * @param {string} path - The path to find
+   * @return {Promise<IPhoto>}  A Photo
+   */
+    async getByPath(path: string): Promise<IPhoto| null> {
+      return PhotoRepository.getByPath(path);
+    }
+
+     /**
+   *
+   * Remove by path a File synced
+   * @param {string} path - The path to find
+   * @return {Promise<IPhoto>}  A File removed
+   * @memberof FileService
+   */
+      async removeByPath(path: string): Promise<IPhoto| null> {
+        const taskToDelete = await this.getByPath(path);
+        if (taskToDelete) await taskToDelete.remove();
+        return taskToDelete;
+      }
+
   /**
    *
    * Remove a Photo
