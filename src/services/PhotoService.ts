@@ -56,10 +56,10 @@ class PhotoService implements ICrud<IPhoto, string> {
 
      /**
    *
-   * Remove by path a File synced
+   * Remove by path a Photo synced
    * @param {string} path - The path to find
-   * @return {Promise<IPhoto>}  A File removed
-   * @memberof FileService
+   * @return {Promise<IPhoto>}  A Photo removed
+   * @memberof PhotoService
    */
       async removeByPath(path: string): Promise<IPhoto| null> {
         const taskToDelete = await this.getByPath(path);

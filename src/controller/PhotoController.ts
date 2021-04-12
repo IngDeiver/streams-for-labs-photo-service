@@ -91,7 +91,7 @@ class PhotoController {
    * @param {Response} res - The response
    * @param {NextFunction} next - The next middleware in queue
    * @return {JSON} - A photo removed
-   * @memberof FileController
+   * @memberof PhotoController
    */
    public static async removePhotoSyncedByPath(req: Request, res: Response, next: NextFunction) {
     try {
