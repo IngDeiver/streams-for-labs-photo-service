@@ -132,7 +132,7 @@ class PhotoRepository implements ICrud<IPhoto, string> {
    * @memberof PhotoRepository
    */
   async getPhotos(author: string): Promise<Array<IPhoto>> {
-    return Photo.find({ author });
+    return Photo.find({ author }).populate("author");
   }
   /**
    *
